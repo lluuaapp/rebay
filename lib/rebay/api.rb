@@ -45,7 +45,7 @@ module Rebay
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 0.5
       http.open_timeout = 0.5
-      response = http.start() {|http| http.get(url.path) }
+      response = http.start() {|http| http.get(uri.path) }
       Rebay::Response.new(JSON.parse(response.body))
     end
 
