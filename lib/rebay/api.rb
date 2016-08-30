@@ -47,8 +47,8 @@ module Rebay
     def get_json_response(url)
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
-      http.read_timeout = self.timeout
-      http.open_timeout = self.timeout
+      http.read_timeout = self.class.timeout
+      http.open_timeout = self.class.timeout
       response = http.start() {|http| http.request_get(uri.request_uri) }
       Rebay::Response.new(JSON.parse(response.body))
     end
