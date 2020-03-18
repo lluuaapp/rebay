@@ -47,7 +47,7 @@ module Rebay
     def get_json_response(url)
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
-      puts "Rebay SSL: #{url}, #{uri.request_uri}"
+      # puts "Rebay SSL: #{url}, #{uri.request_uri}"
       http.use_ssl = true
       http.read_timeout = self.class.timeout
       http.open_timeout = self.class.timeout
