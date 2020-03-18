@@ -22,7 +22,7 @@ module Rebay
       end
 
       def base_url_prefix
-        "http://svcs"
+        "https://svcs"
       end
 
       def base_url_suffix
@@ -47,6 +47,8 @@ module Rebay
     def get_json_response(url)
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
+      puts "Rebay SSL: #{uri.request_uri}"
+      http.use_ssl = true
       http.read_timeout = self.class.timeout
       http.open_timeout = self.class.timeout
       response = http.start() {|http| http.request_get(uri.request_uri) }
