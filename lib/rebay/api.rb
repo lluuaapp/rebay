@@ -9,12 +9,16 @@ module Rebay
     EBAY_US = 0
 
     class << self
-      attr_accessor :app_id, :default_site_id, :sandbox
+      attr_accessor :app_id, :default_site_id, :sandbox, :timeout
       
       def base_url
         [base_url_prefix,
          sandbox ? "sandbox" : nil,
          base_url_suffix].compact.join('.')
+      end
+
+      def timeout
+        @timeout || 0.25
       end
 
       def base_url_prefix
@@ -41,7 +45,14 @@ module Rebay
     protected
     
     def get_json_response(url)
-      Rebay::Response.new(JSON.parse(Net::HTTP.get_response(URI.parse(url)).body))
+      uri = URI.parse(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      # puts "Rebay SSL: #{url}, #{uri.request_uri}"
+      http.use_ssl = true
+      http.read_timeout = self.class.timeout
+      http.open_timeout = self.class.timeout
+      response = http.start() {|http| http.request_get(uri.request_uri) }
+      Rebay::Response.new(JSON.parse(response.body))
     end
 
     def build_rest_payload(params)
