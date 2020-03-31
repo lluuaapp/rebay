@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "rebay"
-  s.version = "1.2.1"
+  s.version = "1.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Chuck Collins", "Paul Hecker"]
-  s.date = "2020-03-17"
+  s.authors = ["Chuck Collins", "David Gillis", "richcao", "Paul Hecker"]
+  s.date = "2020-03-31"
   s.email = "paul@iwascoding.com.com"
   s.license = 'MIT'
   s.extra_rdoc_files = [
