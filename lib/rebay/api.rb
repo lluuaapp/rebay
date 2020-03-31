@@ -18,7 +18,7 @@ module Rebay
       end
 
       def timeout
-        @timeout || 0.25
+        @timeout || 30.0
       end
 
       def base_url_prefix
