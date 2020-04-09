@@ -1,5 +1,7 @@
 module Rebay
   class Finding < Rebay::Api
+    attr_accessor :site_id
+    
     def self.base_url_suffix
       "ebay.com/services/search/FindingService/v1"
     end
@@ -117,8 +119,12 @@ module Rebay
     end
 
     private
+    def site_id
+      @site_id ||= Rebay::Api.site_id
+    end
+
     def build_request_url(service, params=nil)
-      url = "#{self.class.base_url}?OPERATION-NAME=#{service}&SERVICE-VERSION=#{VERSION}&SECURITY-APPNAME=#{Rebay::Api.app_id}&X-EBAY-SOA-GLOBAL-ID=#{Rebay::Api.default_site_id}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD"
+      url = "#{self.class.base_url}?OPERATION-NAME=#{service}&SERVICE-VERSION=#{VERSION}&SECURITY-APPNAME=#{Rebay::Api.app_id}&X-EBAY-SOA-GLOBAL-ID=#{site_id}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD"
       url += build_rest_payload(params)
       return url
     end
